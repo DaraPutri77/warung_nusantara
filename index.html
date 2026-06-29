@@ -2081,93 +2081,122 @@
 
     const ordersQuery = query(collection(db, "orders"), orderBy("createdAt", "desc"));
 
+    // Token penanda render terbaru. Firestore onSnapshot bisa terpanggil
+    // lebih dari sekali secara cepat (misalnya dari cache lokal lalu dari
+    // server) sementara proses async (getDoc/getDocs) sebelumnya belum
+    // selesai. Tanpa penanda ini, render LAMA yang baru selesai belakangan
+    // bisa ikut menumpuk/menimpa render BARU, sehingga struk tampak dobel.
+    let orderRenderToken = 0;
+
+    async function buildOrderCardHTML(docSnap) {
+      const order = docSnap.data();
+
+      const customerName = await getNameFromReference(order.customerId, "customers");
+      const restaurantName = await getRestaurantNameFromReference(order.restaurantId);
+      const orderItemsHTML = await getOrderItemsHTML(docSnap.id);
+
+      const createdTime = order.createdAt && typeof order.createdAt.toDate === "function"
+        ? order.createdAt.toDate().toLocaleTimeString("id-ID", {
+            hour: "2-digit",
+            minute: "2-digit"
+          })
+        : "-";
+
+      const statusText = order.status || "pending";
+
+      const statusLabel = {
+        pending: "PENDING",
+        cooking: "DIMASAK",
+        ready: "SIAP",
+        done: "SELESAI"
+      };
+
+      return `
+        <div class="order-card receipt-card">
+          <div class="receipt-glow"></div>
+
+          <div class="receipt-topbar">
+            <div class="receipt-mini-row">
+              <p class="receipt-label">♡ Struk Pesanan ♡</p>
+              <span class="receipt-time">${createdTime}</span>
+            </div>
+
+            <div class="receipt-table-row">
+              <h3>Meja #${order.tableNumber || "-"}</h3>
+              <span class="receipt-status ${statusText}">
+                ${statusLabel[statusText] || statusText.toUpperCase()}
+              </span>
+            </div>
+          </div>
+
+          <div class="receipt-body">
+            <div class="receipt-shop">
+              <p class="receipt-restaurant">${restaurantName}</p>
+              <p class="receipt-customer"><strong>Customer:</strong> ${customerName}</p>
+              <p class="receipt-id">Kode: ${docSnap.id}</p>
+            </div>
+
+            ${orderItemsHTML}
+
+            <div class="receipt-total">
+              <span>Total</span>
+              <strong>${formatRupiah(order.totalPrice)}</strong>
+            </div>
+
+            <div class="receipt-control">
+              <div>
+                <label for="status-${docSnap.id}">Ubah Status</label>
+                <select id="status-${docSnap.id}" class="status-select">
+                  ${statusOptions(statusText)}
+                </select>
+              </div>
+
+              <button
+                type="button"
+                class="update-status-button"
+                data-order-id="${docSnap.id}"
+              >
+                Update
+              </button>
+            </div>
+          </div>
+
+          <div class="receipt-thanks">
+           ♡ Thank you for your order ♡
+          </div>
+        </div>
+      `;
+    }
+
     onSnapshot(ordersQuery, async function (snapshot) {
-      orderList.innerHTML = "";
+      const myToken = ++orderRenderToken;
 
       if (snapshot.empty) {
+        if (myToken !== orderRenderToken) {
+          return;
+        }
         orderList.innerHTML = "<p>Belum ada pesanan.</p>";
         return;
       }
 
-      for (const docSnap of snapshot.docs) {
-        const order = docSnap.data();
+      // Susun semua kartu struk secara paralel, lalu gabungkan jadi satu
+      // string HTML dan tulis ke DOM SEKALI SAJA di akhir. Ini mencegah
+      // kartu menumpuk dari beberapa pemanggilan onSnapshot yang tumpang
+      // tindih (sumber utama struk tampak dobel).
+      const cardsHTML = await Promise.all(
+        snapshot.docs.map(function (docSnap) {
+          return buildOrderCardHTML(docSnap);
+        })
+      );
 
-        const customerName = await getNameFromReference(order.customerId, "customers");
-        const restaurantName = await getRestaurantNameFromReference(order.restaurantId);
-        const orderItemsHTML = await getOrderItemsHTML(docSnap.id);
-
-        const createdTime = order.createdAt && typeof order.createdAt.toDate === "function"
-          ? order.createdAt.toDate().toLocaleTimeString("id-ID", {
-              hour: "2-digit",
-              minute: "2-digit"
-            })
-          : "-";
-
-        const statusText = order.status || "pending";
-
-        const statusLabel = {
-          pending: "PENDING",
-          cooking: "DIMASAK",
-          ready: "SIAP",
-          done: "SELESAI"
-        };
-
-        orderList.innerHTML += `
-          <div class="order-card receipt-card">
-            <div class="receipt-glow"></div>
-
-            <div class="receipt-topbar">
-              <div class="receipt-mini-row">
-                <p class="receipt-label">♡ Struk Pesanan ♡</p>
-                <span class="receipt-time">${createdTime}</span>
-              </div>
-
-              <div class="receipt-table-row">
-                <h3>Meja #${order.tableNumber || "-"}</h3>
-                <span class="receipt-status ${statusText}">
-                  ${statusLabel[statusText] || statusText.toUpperCase()}
-                </span>
-              </div>
-            </div>
-
-            <div class="receipt-body">
-              <div class="receipt-shop">
-                <p class="receipt-restaurant">${restaurantName}</p>
-                <p class="receipt-customer"><strong>Customer:</strong> ${customerName}</p>
-                <p class="receipt-id">Kode: ${docSnap.id}</p>
-              </div>
-
-              ${orderItemsHTML}
-
-              <div class="receipt-total">
-                <span>Total</span>
-                <strong>${formatRupiah(order.totalPrice)}</strong>
-              </div>
-
-              <div class="receipt-control">
-                <div>
-                  <label for="status-${docSnap.id}">Ubah Status</label>
-                  <select id="status-${docSnap.id}" class="status-select">
-                    ${statusOptions(statusText)}
-                  </select>
-                </div>
-
-                <button
-                  type="button"
-                  class="update-status-button"
-                  data-order-id="${docSnap.id}"
-                >
-                  Update
-                </button>
-              </div>
-            </div>
-
-            <div class="receipt-thanks">
-             ♡ Thank you for your order ♡
-            </div>
-          </div>
-        `;
+      // Jika ada render yang lebih baru sudah dimulai selagi kita menunggu
+      // data di atas, buang hasil render basi ini supaya tidak menimpa
+      // tampilan yang sudah lebih up-to-date.
+      if (myToken !== orderRenderToken) {
+        return;
       }
+
+      orderList.innerHTML = cardsHTML.join("");
     });
 
     orderList.addEventListener("click", async function (event) {
