@@ -1,0 +1,2197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Warung Nusantara</title>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700;800&family=Pacifico&family=Baloo+2:wght@600;700;800&display=swap");
+
+    :root {
+      --hot-pink: #ff3f9f;
+      --pink-main: #ff79bd;
+      --pink-soft: #ffe5f3;
+      --pink-dark: #cf2f78;
+      --pink-deep: #81264e;
+      --cream: #fff8df;
+      --white: #ffffff;
+      --brown: #51233a;
+      --text: #42283a;
+      --muted: #856779;
+      --green: #139b56;
+      --orange: #ff944d;
+      --purple: #8b7cf6;
+      --border-pink: rgba(255, 121, 189, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Fredoka", "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% 10%, rgba(255, 121, 189, 0.50), transparent 22%),
+        radial-gradient(circle at 88% 10%, rgba(243, 220, 255, 0.78), transparent 25%),
+        radial-gradient(circle at 82% 78%, rgba(255, 240, 174, 0.60), transparent 24%),
+        radial-gradient(circle at 18% 85%, rgba(255, 190, 223, 0.50), transparent 25%),
+        linear-gradient(135deg, #fff0f8 0%, #fff8df 42%, #ffdff0 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255, 63, 159, 0.13) 2px, transparent 2px),
+        radial-gradient(circle, rgba(255, 196, 225, 0.70) 2px, transparent 2px),
+        radial-gradient(circle, rgba(255, 236, 160, 0.50) 2px, transparent 2px);
+      background-size: 42px 42px, 68px 68px, 92px 92px;
+      animation: bgMove 18s linear infinite;
+    }
+
+    @keyframes bgMove {
+      from {
+        background-position: 0 0, 20px 22px, 46px 18px;
+      }
+
+      to {
+        background-position: 120px 80px, 160px 140px, 200px 120px;
+      }
+    }
+
+    .floating-decor {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .floating-decor span {
+      position: absolute;
+      width: 46px;
+      height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.58);
+      color: rgba(255, 63, 159, 0.72);
+      font-size: 23px;
+      box-shadow: 0 12px 26px rgba(255, 79, 163, 0.15);
+      backdrop-filter: blur(7px);
+      animation: floatCute 9s ease-in-out infinite;
+    }
+
+    .floating-decor span:nth-child(1) { left: 4%; top: 16%; }
+    .floating-decor span:nth-child(2) { right: 5%; top: 18%; animation-delay: 1.5s; }
+    .floating-decor span:nth-child(3) { left: 7%; bottom: 16%; animation-delay: 3s; }
+    .floating-decor span:nth-child(4) { right: 8%; bottom: 13%; animation-delay: 4.2s; }
+    .floating-decor span:nth-child(5) { left: 48%; top: 8%; animation-delay: 2.4s; }
+    .floating-decor span:nth-child(6) { left: 24%; top: 36%; animation-delay: 5.1s; }
+    .floating-decor span:nth-child(7) { right: 23%; bottom: 34%; animation-delay: 6.2s; }
+
+    @keyframes floatCute {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 0.72;
+      }
+
+      50% {
+        transform: translateY(-24px) rotate(12deg) scale(1.1);
+        opacity: 1;
+      }
+    }
+
+    header,
+    main {
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      max-width: 1120px;
+      margin: 22px auto 0;
+      padding: 54px 28px 58px;
+      text-align: center;
+      color: white;
+      border-radius: 0 0 50px 50px;
+      background:
+        radial-gradient(circle at 12% 20%, rgba(255, 255, 255, 0.38), transparent 15%),
+        radial-gradient(circle at 84% 35%, rgba(255, 240, 174, 0.30), transparent 16%),
+        linear-gradient(135deg, #ff86c5 0%, #ff4fa3 45%, #cf2f78 100%);
+      box-shadow:
+        0 22px 58px rgba(255, 63, 159, 0.32),
+        inset 0 -12px 34px rgba(129, 38, 78, 0.19);
+      overflow: hidden;
+      border: 1.6px solid rgba(255, 255, 255, 0.46);
+    }
+
+    header::before {
+      content: "♡";
+      position: absolute;
+      left: 45px;
+      top: 34px;
+      font-size: 72px;
+      color: rgba(255, 255, 255, 0.38);
+      transform: rotate(-17deg);
+    }
+
+    header::after {
+      content: "✦";
+      position: absolute;
+      right: 56px;
+      bottom: 40px;
+      font-size: 70px;
+      color: rgba(255, 255, 255, 0.42);
+      transform: rotate(14deg);
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      margin-bottom: 20px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1.4px solid rgba(255, 255, 255, 0.42);
+      backdrop-filter: blur(9px);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    header h1 {
+      margin: 0;
+      font-family: "Pacifico", "Fredoka", cursive;
+      font-size: clamp(50px, 7.2vw, 88px);
+      line-height: 1.05;
+      color: #ffffff;
+      text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.95),
+        0 0 28px rgba(255, 214, 237, 0.96),
+        0 7px 23px rgba(129, 38, 78, 0.36);
+    }
+
+    header p {
+      margin: 19px auto 0;
+      max-width: 780px;
+      font-size: clamp(16px, 2vw, 21px);
+      line-height: 1.6;
+      font-weight: 700;
+      color: #fff8fc;
+      text-shadow: 0 3px 12px rgba(85, 35, 60, 0.28);
+    }
+
+    .hero-pills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 26px;
+    }
+
+    .hero-pills span {
+      padding: 10px 17px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1.2px solid rgba(255, 255, 255, 0.40);
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+
+    .cute-nav {
+      max-width: 1080px;
+      margin: 22px auto 0;
+      padding: 0 18px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cute-nav a {
+      text-decoration: none;
+      color: var(--pink-deep);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1.5px solid rgba(255, 127, 189, 0.28);
+      padding: 11px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      box-shadow: 0 12px 24px rgba(255, 127, 189, 0.12);
+      backdrop-filter: blur(10px);
+      transition: 0.2s ease;
+    }
+
+    .cute-nav a:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(135deg, #fff, #ffe4f2);
+    }
+
+    main {
+      max-width: 1080px;
+      margin: 32px auto 62px;
+      padding: 0 18px;
+    }
+
+    section {
+      position: relative;
+      margin-bottom: 30px;
+      padding: 32px;
+      border-radius: 38px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.90), rgba(255, 245, 251, 0.86)),
+        radial-gradient(circle at 100% 0%, rgba(255, 127, 189, 0.18), transparent 32%);
+      backdrop-filter: blur(14px);
+      border: 1.7px solid rgba(255, 127, 189, 0.25);
+      box-shadow:
+        0 20px 48px rgba(255, 127, 189, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.78);
+      overflow: hidden;
+    }
+
+    section::after {
+      content: "♡";
+      position: absolute;
+      right: 24px;
+      top: 16px;
+      font-size: 50px;
+      color: rgba(255, 127, 189, 0.10);
+      transform: rotate(14deg);
+    }
+
+    h2 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--pink-dark);
+      font-family: "Baloo 2", "Fredoka", sans-serif;
+      font-size: clamp(34px, 4.2vw, 50px);
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    h2::before {
+      content: "♡";
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 35% 30%, white, #ffd6ea 55%, #ff9fca 100%);
+      color: var(--pink-dark);
+      font-size: 25px;
+      box-shadow: 0 0 20px rgba(255, 127, 189, 0.44);
+      flex: 0 0 auto;
+    }
+
+    label {
+      position: relative;
+      z-index: 1;
+      display: block;
+      margin-top: 14px;
+      margin-bottom: 8px;
+      color: var(--brown);
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    select,
+    input {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: 21px;
+      border: 2px solid rgba(255, 127, 189, 0.31);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(255, 248, 252, 0.97));
+      color: var(--text);
+      outline: none;
+      font-family: "Fredoka", "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      transition: 0.22s ease;
+    }
+
+    select:focus,
+    input:focus {
+      border-color: var(--hot-pink);
+      box-shadow: 0 0 0 5px rgba(255, 79, 163, 0.15);
+      background: white;
+    }
+
+    input::placeholder {
+      color: #bd96aa;
+    }
+
+    button {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
+      padding: 15px 30px;
+      border: 0;
+      border-radius: 23px;
+      background: linear-gradient(135deg, #ff8ac8 0%, #ff4fa3 44%, #cf2f78 100%);
+      color: white;
+      font-family: "Fredoka", "Segoe UI", Arial, sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow:
+        0 17px 30px rgba(207, 47, 120, 0.30),
+        0 0 24px rgba(255, 127, 189, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.34);
+      transition: 0.22s ease;
+      overflow: hidden;
+      isolation: isolate;
+      transform: translateZ(0);
+    }
+
+    button::before {
+      content: "";
+      position: absolute;
+      top: -45%;
+      left: -85%;
+      width: 70%;
+      height: 190%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0;
+      transform: rotate(18deg);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.22),
+        rgba(255, 255, 255, 0.88),
+        rgba(255, 240, 250, 0.36),
+        transparent
+      );
+    }
+
+    button::after {
+      content: "";
+      position: absolute;
+      left: var(--spark-x, 50%);
+      top: var(--spark-y, 50%);
+      width: 20px;
+      height: 20px;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0;
+      border-radius: 999px;
+      transform: translate(-50%, -50%) scale(0);
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.98) 0 10%, rgba(255, 231, 246, 0.88) 18%, rgba(255, 121, 189, 0.44) 40%, transparent 72%);
+      box-shadow:
+        0 0 18px rgba(255, 255, 255, 0.95),
+        0 0 35px rgba(255, 121, 189, 0.85),
+        0 0 58px rgba(255, 63, 159, 0.48);
+    }
+
+    button:hover {
+      transform: translateY(-3px) scale(1.018);
+      box-shadow:
+        0 20px 36px rgba(207, 47, 120, 0.34),
+        0 0 30px rgba(255, 127, 189, 0.55),
+        0 0 50px rgba(255, 210, 237, 0.40),
+        inset 0 1px 0 rgba(255, 255, 255, 0.42);
+      filter: saturate(1.08);
+    }
+
+    button:hover::before {
+      opacity: 1;
+      animation: buttonShine 1s ease;
+    }
+
+    button:active {
+      transform: translateY(0) scale(0.97);
+      box-shadow:
+        0 10px 18px rgba(207, 47, 120, 0.28),
+        0 0 42px rgba(255, 180, 223, 0.76),
+        0 0 75px rgba(255, 63, 159, 0.45);
+    }
+
+    button.button-click-glow {
+      animation: cuteButtonPop 0.55s ease;
+    }
+
+    button.button-click-glow::after {
+      animation: buttonMagicRipple 0.78s ease-out;
+    }
+
+    @keyframes buttonShine {
+      0% {
+        left: -90%;
+        opacity: 0;
+      }
+
+      18% {
+        opacity: 1;
+      }
+
+      100% {
+        left: 135%;
+        opacity: 0;
+      }
+    }
+
+    @keyframes cuteButtonPop {
+      0% {
+        filter: brightness(1);
+      }
+
+      35% {
+        filter: brightness(1.2) saturate(1.22);
+        box-shadow:
+          0 0 22px rgba(255, 255, 255, 0.92),
+          0 0 38px rgba(255, 143, 205, 0.90),
+          0 0 68px rgba(255, 63, 159, 0.58);
+      }
+
+      100% {
+        filter: brightness(1);
+      }
+    }
+
+    @keyframes buttonMagicRipple {
+      0% {
+        opacity: 0.95;
+        transform: translate(-50%, -50%) scale(0.25);
+      }
+
+      65% {
+        opacity: 0.7;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(18);
+      }
+    }
+
+    .sparkle-dot {
+      position: fixed;
+      z-index: 9999;
+      pointer-events: none;
+      font-family: "Fredoka", "Segoe UI", Arial, sans-serif;
+      font-size: var(--spark-size, 16px);
+      line-height: 1;
+      color: var(--spark-color, #ffffff);
+      text-shadow:
+        0 0 7px rgba(255, 255, 255, 0.98),
+        0 0 16px rgba(255, 127, 189, 0.95),
+        0 0 28px rgba(255, 63, 159, 0.70);
+      animation: sparkleFly 0.85s ease-out forwards;
+    }
+
+    @keyframes sparkleFly {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.65) rotate(0deg);
+      }
+
+      55% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(
+            calc(-50% + var(--spark-tx, 0px)),
+            calc(-50% + var(--spark-ty, -40px))
+          )
+          scale(1.3)
+          rotate(var(--spark-rotate, 180deg));
+      }
+    }
+
+    .restaurant-card,
+    .customer-card,
+    .order-card {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 17px;
+      padding: 23px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.93), rgba(255, 243, 250, 0.93));
+      border: 1.7px solid rgba(255, 127, 189, 0.26);
+      box-shadow: 0 15px 30px rgba(255, 127, 189, 0.12);
+      overflow: hidden;
+      transition: 0.24s ease;
+    }
+
+    .restaurant-card:hover,
+    .customer-card:hover,
+    .order-card:hover,
+    .menu-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 79, 163, 0.40);
+    }
+
+    .restaurant-card h3,
+    .customer-card h3,
+    .order-card h3 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 12px;
+      color: var(--brown);
+      font-family: "Baloo 2", "Fredoka", sans-serif;
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .restaurant-card p,
+    .customer-card p,
+    .order-card p {
+      position: relative;
+      z-index: 1;
+      margin: 7px 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .restaurant-card strong,
+    .customer-card strong,
+    .order-card strong {
+      color: var(--brown);
+      font-weight: 800;
+    }
+
+    .badge {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 13px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      color: #8a285e;
+      font-size: 13px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffd8ea 0%, #fff2c8 100%);
+      border: 1.2px solid rgba(255, 127, 189, 0.30);
+    }
+
+    .badge::before {
+      content: "✦";
+      color: var(--pink-dark);
+      font-size: 12px;
+    }
+
+    .menu-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+      gap: 21px;
+      margin-top: 16px;
+    }
+
+    .menu-card {
+      border-radius: 30px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.93);
+      border: 1.7px solid rgba(255, 127, 189, 0.28);
+      box-shadow: 0 18px 36px rgba(255, 127, 189, 0.13);
+      transition: 0.24s ease;
+      position: relative;
+    }
+
+    .menu-card::before {
+      content: "♡";
+      position: absolute;
+      right: 14px;
+      top: 12px;
+      z-index: 2;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--hot-pink);
+    }
+
+    .menu-card img {
+      width: 100%;
+      height: 165px;
+      object-fit: cover;
+      display: block;
+      background: linear-gradient(135deg, #ffd6ea 0%, #ffc1de 48%, #fff1b8 100%);
+      filter: saturate(1.05);
+    }
+
+    .menu-content {
+      padding: 21px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(255, 245, 251, 0.97));
+    }
+
+    .menu-content h3 {
+      margin: 0 0 10px;
+      color: var(--brown);
+      font-family: "Baloo 2", "Fredoka", sans-serif;
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .menu-content p {
+      margin: 8px 0;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .price {
+      color: var(--pink-dark);
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .available {
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .not-available {
+      color: #d43b4b;
+      font-weight: 800;
+    }
+
+    .message {
+      position: relative;
+      z-index: 1;
+      margin-top: 16px;
+      padding: 15px 17px;
+      border-radius: 21px;
+      display: none;
+      font-weight: 800;
+    }
+
+    .message.success {
+      display: block;
+      background: linear-gradient(135deg, #eafff1, #f7fff9);
+      color: #0d7a3c;
+      border: 1px solid #9be4b2;
+    }
+
+    .message.error {
+      display: block;
+      background: linear-gradient(135deg, #fff0f7, #fff8fb);
+      color: var(--pink-dark);
+      border: 1px solid #ffc1dc;
+    }
+
+    .loading {
+      color: var(--muted);
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .two-column {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 21px;
+    }
+
+    .note {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 18px;
+      padding: 17px 19px;
+      border-radius: 24px;
+      color: #7a3b5a;
+      font-weight: 700;
+      line-height: 1.6;
+      background: linear-gradient(135deg, rgba(255, 238, 248, 0.95), rgba(255, 250, 221, 0.93));
+      border: 1.6px solid rgba(255, 127, 189, 0.26);
+    }
+
+    .order-builder {
+      position: relative;
+      z-index: 1;
+      margin-top: 16px;
+      padding: 18px;
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(255, 241, 248, 0.96), rgba(255, 250, 226, 0.94));
+      border: 1.6px solid rgba(255, 127, 189, 0.28);
+      box-shadow: 0 13px 28px rgba(255, 127, 189, 0.10);
+    }
+
+    .menu-picker-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 0.7fr auto;
+      gap: 14px;
+      align-items: end;
+    }
+
+    .add-menu-button {
+      margin-top: 0;
+      min-height: 56px;
+      white-space: nowrap;
+      padding-inline: 22px;
+    }
+
+    .cart-box {
+      margin-top: 17px;
+      padding: 15px;
+      border-radius: 23px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1.5px dashed rgba(207, 47, 120, 0.25);
+    }
+
+    .cart-title {
+      margin: 0 0 11px;
+      color: var(--pink-deep);
+      font-weight: 900;
+      font-size: 16px;
+    }
+
+    .cart-empty {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 650;
+      font-style: italic;
+    }
+
+    .cart-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 11px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(207, 47, 120, 0.13);
+    }
+
+    .cart-row:last-child {
+      border-bottom: 0;
+    }
+
+    .cart-name {
+      color: var(--brown);
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .cart-detail {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .cart-subtotal {
+      color: var(--pink-deep);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .remove-cart-button {
+      margin: 0;
+      padding: 8px 11px;
+      border-radius: 14px;
+      font-size: 12px;
+      background: linear-gradient(135deg, #ff8a8a, #d93682);
+      box-shadow:
+        0 10px 18px rgba(217, 54, 130, 0.20),
+        0 0 18px rgba(255, 138, 138, 0.20);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 12px;
+      padding-top: 13px;
+      border-top: 1.6px dashed rgba(207, 47, 120, 0.20);
+      color: var(--brown);
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    .cart-total strong {
+      color: var(--pink-deep);
+    }
+
+    .scroll-box {
+      position: relative;
+      z-index: 1;
+      max-height: 395px;
+      overflow-y: auto;
+      padding-right: 11px;
+      border-left: 1px solid rgba(255, 127, 189, 0.19);
+      padding-left: 15px;
+    }
+
+    .scroll-box::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    .scroll-box::-webkit-scrollbar-track {
+      background: #fff0f7;
+      border-radius: 999px;
+    }
+
+    .scroll-box::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #ff8ac6, #ff4fa3, #cf2f78);
+      border-radius: 999px;
+      border: 2px solid #fff0f7;
+    }
+
+    #customerList,
+    #restaurantList {
+      margin-top: 10px;
+    }
+
+    #orderList {
+      position: relative;
+      z-index: 1;
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 390px));
+      justify-content: center;
+      align-items: start;
+      gap: 22px;
+    }
+
+    .receipt-card {
+      width: 100%;
+      max-width: 390px;
+      margin: 0;
+      padding: 0;
+      border-radius: 30px;
+      background:
+        linear-gradient(180deg, rgba(255, 254, 251, 0.99), rgba(255, 245, 252, 0.99));
+      border: 2px solid rgba(255, 127, 189, 0.48);
+      box-shadow:
+        0 18px 38px rgba(255, 79, 163, 0.17),
+        0 0 22px rgba(255, 183, 219, 0.22);
+      overflow: visible;
+      transform-origin: center;
+    }
+
+    .receipt-card:hover {
+      transform: translateY(-5px) rotate(-0.4deg);
+    }
+
+    .receipt-card::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      top: -8px;
+      height: 16px;
+      background:
+        radial-gradient(circle at 8px 8px, #ffd9ec 0 5.5px, transparent 6px);
+      background-size: 22px 16px;
+      z-index: 3;
+      opacity: 0.95;
+    }
+
+    .receipt-card::after {
+      content: "♡";
+      position: absolute;
+      right: 18px;
+      bottom: 13px;
+      font-size: 80px;
+      line-height: 1;
+      color: rgba(255, 127, 189, 0.07);
+      z-index: 1;
+      transform: rotate(-12deg);
+      pointer-events: none;
+    }
+
+    .receipt-glow {
+      position: absolute;
+      inset: -2px;
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 12% 6%, rgba(255, 123, 189, 0.20), transparent 34%),
+        radial-gradient(circle at 92% 3%, rgba(255, 239, 172, 0.38), transparent 28%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .receipt-topbar {
+      position: relative;
+      z-index: 2;
+      padding: 16px 18px 13px;
+      border-radius: 28px 28px 0 0;
+      background:
+        linear-gradient(135deg, rgba(255, 235, 246, 0.98), rgba(255, 248, 218, 0.96));
+      border-bottom: 1.5px dashed rgba(207, 47, 120, 0.20);
+    }
+
+    .receipt-mini-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 9px;
+    }
+
+    .receipt-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--pink-deep);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(255, 127, 189, 0.23);
+    }
+
+    .receipt-time {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: white;
+      color: var(--pink-dark);
+      border: 1px solid rgba(255, 127, 189, 0.28);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .receipt-table-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .receipt-table-row h3 {
+      margin: 0;
+      color: var(--brown);
+      font-family: "Baloo 2", "Fredoka", sans-serif;
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .receipt-status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: white;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      box-shadow: 0 9px 18px rgba(255, 79, 163, 0.18);
+    }
+
+    .receipt-status.pending {
+      background: linear-gradient(135deg, #ffb347, #ff8c42);
+    }
+
+    .receipt-status.cooking {
+      background: linear-gradient(135deg, #ff79bd, #cf2f78);
+    }
+
+    .receipt-status.ready {
+      background: linear-gradient(135deg, #25b86f, #13864e);
+    }
+
+    .receipt-status.done {
+      background: linear-gradient(135deg, #8b7cf6, #5d4fd6);
+    }
+
+    .receipt-body {
+      position: relative;
+      z-index: 2;
+      padding: 15px 18px 17px;
+    }
+
+    .receipt-shop {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px dashed rgba(207, 47, 120, 0.18);
+    }
+
+    .receipt-restaurant {
+      margin: 0;
+      color: #9b6a3d;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 900;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .receipt-customer {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .receipt-customer strong {
+      color: var(--brown);
+      font-weight: 900;
+    }
+
+    .receipt-id {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-family: "Courier New", monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .receipt-menu {
+      padding-bottom: 10px;
+      border-bottom: 1.5px dashed rgba(207, 47, 120, 0.18);
+    }
+
+    .receipt-section-title {
+      margin: 0 0 9px;
+      color: var(--pink-deep);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .receipt-line {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: start;
+      padding: 7px 0;
+    }
+
+    .receipt-line + .receipt-line {
+      border-top: 1px dashed rgba(207, 47, 120, 0.10);
+    }
+
+    .receipt-line-name {
+      color: var(--brown);
+      font-family: "Courier New", monospace;
+      font-size: 13.5px;
+      font-weight: 900;
+      line-height: 1.3;
+    }
+
+    .receipt-line-detail {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-family: "Fredoka", sans-serif;
+      font-size: 11.5px;
+      font-weight: 650;
+    }
+
+    .receipt-line-price {
+      color: var(--brown);
+      font-family: "Courier New", monospace;
+      font-size: 13.5px;
+      font-weight: 900;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .receipt-empty {
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 127, 189, 0.24);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .receipt-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0 13px;
+      border-bottom: 1.5px dashed rgba(207, 47, 120, 0.18);
+    }
+
+    .receipt-total span {
+      color: var(--brown);
+      font-family: "Baloo 2", "Fredoka", sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .receipt-total strong {
+      color: var(--pink-deep);
+      font-family: "Baloo 2", "Fredoka", sans-serif;
+      font-size: 23px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .receipt-control {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 9px;
+      align-items: end;
+      padding-top: 12px;
+    }
+
+    .receipt-control label {
+      margin: 0 0 5px;
+      font-size: 12px;
+      color: var(--pink-deep);
+    }
+
+    .receipt-control select {
+      min-height: 42px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: white;
+      font-size: 14px;
+      border-color: rgba(255, 127, 189, 0.35);
+    }
+
+    .receipt-control button {
+      min-height: 42px;
+      margin: 0;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .receipt-thanks {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      padding: 10px 14px 12px;
+      border-radius: 0 0 28px 28px;
+      background:
+        linear-gradient(135deg, rgba(255, 228, 242, 0.65), rgba(255, 248, 214, 0.55));
+      color: var(--pink-deep);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.4px;
+    }
+
+    @media (max-width: 760px) {
+      header {
+        margin-top: 0;
+        padding: 46px 18px 50px;
+        border-radius: 0 0 36px 36px;
+      }
+
+      header h1 {
+        font-size: 48px;
+      }
+
+      header p {
+        font-size: 16px;
+      }
+
+      .hero-pills {
+        gap: 8px;
+      }
+
+      .hero-pills span,
+      .cute-nav a {
+        font-size: 13px;
+      }
+
+      main {
+        padding: 0 12px;
+        margin-top: 24px;
+      }
+
+      section {
+        padding: 23px;
+        border-radius: 30px;
+      }
+
+      h2 {
+        font-size: 32px;
+      }
+
+      h2::before {
+        width: 43px;
+        height: 43px;
+      }
+
+      .two-column,
+      .menu-picker-grid {
+        grid-template-columns: 1fr;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .restaurant-card,
+      .customer-card,
+      .order-card {
+        padding: 19px;
+      }
+
+      .cart-row {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-subtotal {
+        white-space: normal;
+      }
+
+      #orderList {
+        grid-template-columns: 1fr;
+      }
+
+      .receipt-card {
+        max-width: 100%;
+      }
+
+      .receipt-table-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .receipt-line {
+        grid-template-columns: 1fr;
+      }
+
+      .receipt-line-price {
+        text-align: left;
+      }
+
+      .receipt-total strong {
+        font-size: 21px;
+      }
+
+      .receipt-control {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="floating-decor">
+    <span>♡</span>
+    <span>✦</span>
+    <span>❀</span>
+    <span>♡</span>
+    <span>✧</span>
+    <span>˚</span>
+    <span>♡</span>
+  </div>
+
+  <header>
+    <div class="hero-kicker">♡ Pinky Digital Ordering System ♡</div>
+    <h1>Warung Nusantara</h1>
+    <p>Manisnya rasa dalam setiap sajian.</p>
+
+    <div class="hero-pills">
+      <span>♡ Firestore</span>
+      <span>✦ Real-Time Menu</span>
+      <span>❀ Online Order</span>
+      <span>♡ Kitchen Status</span>
+    </div>
+  </header>
+
+  <nav class="cute-nav">
+    <a href="#restoran">♡ Restoran</a>
+    <a href="#customer">✦ Customer</a>
+    <a href="#menu">❀ Menu</a>
+    <a href="#pesan">♡ Pesan</a>
+    <a href="#dapur">✧ Dapur</a>
+  </nav>
+
+  <main>
+    <section id="restoran">
+      <h2>Daftar Restoran</h2>
+      <div id="restaurantList" class="loading">Memuat data restoran...</div>
+    </section>
+
+    <section id="customer">
+      <h2>Tambah Customer</h2>
+
+      <form id="customerForm">
+        <div class="two-column">
+          <div>
+            <label for="customerNameInput">Nama Customer</label>
+            <input
+              type="text"
+              id="customerNameInput"
+              placeholder="Contoh: Budi Santoso"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="customerPhoneInput">Nomor HP / WhatsApp</label>
+            <input
+              type="text"
+              id="customerPhoneInput"
+              placeholder="Contoh: +6281234567890"
+              required
+            />
+          </div>
+        </div>
+
+        <button type="submit">Simpan Customer ♡</button>
+
+        <div id="customerMessage" class="message"></div>
+      </form>
+    </section>
+
+    <section>
+      <h2>Data Customer Real-Time</h2>
+      <div id="customerList" class="loading scroll-box">Memuat data customer...</div>
+    </section>
+
+    <section id="menu">
+      <h2>Menu Real-Time</h2>
+
+      <label for="restaurantSelect">Pilih Restoran:</label>
+      <select id="restaurantSelect">
+        <option value="">Memuat restoran...</option>
+      </select>
+
+      <div id="menuList" class="loading">Pilih restoran untuk melihat menu.</div>
+    </section>
+
+    <section id="pesan">
+      <h2>Form Pemesanan</h2>
+
+      <form id="orderForm">
+        <div class="two-column">
+          <div>
+            <label for="customerSelect">Customer</label>
+            <select id="customerSelect" required>
+              <option value="">Memuat customer...</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="orderRestaurantSelect">Restoran</label>
+            <select id="orderRestaurantSelect" required>
+              <option value="">Memuat restoran...</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="two-column">
+          <div>
+            <label for="tableNumber">Nomor Meja</label>
+            <input type="number" id="tableNumber" min="1" placeholder="Contoh: 5" required />
+          </div>
+        </div>
+
+        <div class="order-builder">
+          <div class="menu-picker-grid">
+            <div>
+              <label for="menuSelect">Pilih Menu</label>
+              <select id="menuSelect">
+                <option value="">Pilih restoran dulu</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="qty">Jumlah</label>
+              <input type="number" id="qty" min="1" value="1" />
+            </div>
+
+            <button type="button" id="addMenuButton" class="add-menu-button">
+              + Tambah Menu
+            </button>
+          </div>
+
+          <div class="cart-box">
+            <p class="cart-title">♡ Menu yang Dipilih</p>
+            <div id="cartList">
+              <p class="cart-empty">Belum ada menu dipilih.</p>
+            </div>
+            <div id="cartTotal" class="cart-total" style="display: none;">
+              <span>Total Pesanan</span>
+              <strong>Rp 0</strong>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit">Buat Pesanan ✦</button>
+
+        <div id="orderMessage" class="message"></div>
+      </form>
+    </section>
+
+    <section id="dapur">
+      <h2>Pesanan Masuk Real-Time</h2>
+      <div id="orderList" class="loading">Memuat data pesanan...</div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+    import {
+      getFirestore,
+      collection,
+      onSnapshot,
+      addDoc,
+      doc,
+      getDoc,
+      getDocs,
+      serverTimestamp,
+      query,
+      orderBy,
+      updateDoc
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCc4rB85YGuSpxA9m31R8osADwcC7eGYAk",
+      authDomain: "warung-nusantara-c9c9b.firebaseapp.com",
+      projectId: "warung-nusantara-c9c9b",
+      storageBucket: "warung-nusantara-c9c9b.firebasestorage.app",
+      messagingSenderId: "407533372610",
+      appId: "1:407533372610:web:11dfc3846feb4dec05a75b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const restaurantList = document.getElementById("restaurantList");
+    const restaurantSelect = document.getElementById("restaurantSelect");
+    const menuList = document.getElementById("menuList");
+
+    const customerForm = document.getElementById("customerForm");
+    const customerNameInput = document.getElementById("customerNameInput");
+    const customerPhoneInput = document.getElementById("customerPhoneInput");
+    const customerMessage = document.getElementById("customerMessage");
+    const customerList = document.getElementById("customerList");
+
+    const customerSelect = document.getElementById("customerSelect");
+    const orderRestaurantSelect = document.getElementById("orderRestaurantSelect");
+    const menuSelect = document.getElementById("menuSelect");
+    const tableNumberInput = document.getElementById("tableNumber");
+    const qtyInput = document.getElementById("qty");
+    const addMenuButton = document.getElementById("addMenuButton");
+    const cartList = document.getElementById("cartList");
+    const cartTotal = document.getElementById("cartTotal");
+    const orderForm = document.getElementById("orderForm");
+    const orderMessage = document.getElementById("orderMessage");
+    const orderList = document.getElementById("orderList");
+
+    let stopMenuListener = null;
+    let stopOrderMenuListener = null;
+    let selectedMenuData = null;
+    let orderCart = [];
+
+    function formatRupiah(number) {
+      return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0
+      }).format(number || 0);
+    }
+
+    // Mapping nama tampilan restoran -> "Cabang 1" / "Cabang 2".
+    // Dicocokkan lewat ID dokumen ATAU nama asli di Firestore (jombang/surabaya),
+    // jadi tampilan di Daftar Restoran, dropdown, dan struk pesanan otomatis ikut berubah.
+    function mapRestaurantName(id, originalName) {
+      const idLower = (id || "").toLowerCase();
+      const nameLower = (originalName || "").toLowerCase();
+
+      if (idLower.includes("jombang") || nameLower.includes("jombang")) {
+        return "Cabang 1";
+      }
+
+      if (idLower.includes("surabaya") || nameLower.includes("surabaya")) {
+        return "Cabang 2";
+      }
+
+      return originalName;
+    }
+
+    function showCustomerMessage(type, text) {
+      customerMessage.className = "message " + type;
+      customerMessage.textContent = text;
+    }
+
+    function showOrderMessage(type, text) {
+      orderMessage.className = "message " + type;
+      orderMessage.textContent = text;
+    }
+
+    function statusOptions(currentStatus) {
+      const statuses = ["pending", "cooking", "ready", "done"];
+
+      return statuses.map(function (status) {
+        const selected = status === currentStatus ? "selected" : "";
+        return `<option value="${status}" ${selected}>${status}</option>`;
+      }).join("");
+    }
+
+    function maskPhone(phone) {
+      if (!phone || phone.length < 7) {
+        return phone || "-";
+      }
+
+      const start = phone.slice(0, 4);
+      const end = phone.slice(-3);
+      return start + "*****" + end;
+    }
+
+    function createButtonSparkles(event, button) {
+      const rect = button.getBoundingClientRect();
+      const clickX = event.clientX ? event.clientX - rect.left : rect.width / 2;
+      const clickY = event.clientY ? event.clientY - rect.top : rect.height / 2;
+
+      button.style.setProperty("--spark-x", clickX + "px");
+      button.style.setProperty("--spark-y", clickY + "px");
+
+      button.classList.remove("button-click-glow");
+      void button.offsetWidth;
+      button.classList.add("button-click-glow");
+
+      setTimeout(function () {
+        button.classList.remove("button-click-glow");
+      }, 800);
+
+      const symbols = ["✦", "♡", "✧", "˚", "❀", "✩"];
+      const colors = ["#ffffff", "#ffe0f1", "#fff3c4", "#ffc5e4", "#ffd7f0"];
+
+      for (let i = 0; i < 9; i++) {
+        const sparkle = document.createElement("span");
+        sparkle.className = "sparkle-dot";
+        sparkle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+        const startX = event.clientX || rect.left + rect.width / 2;
+        const startY = event.clientY || rect.top + rect.height / 2;
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 28 + Math.random() * 44;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance - 18;
+
+        sparkle.style.left = startX + "px";
+        sparkle.style.top = startY + "px";
+        sparkle.style.setProperty("--spark-tx", tx + "px");
+        sparkle.style.setProperty("--spark-ty", ty + "px");
+        sparkle.style.setProperty("--spark-rotate", (120 + Math.random() * 260) + "deg");
+        sparkle.style.setProperty("--spark-size", (12 + Math.random() * 9) + "px");
+        sparkle.style.setProperty("--spark-color", colors[Math.floor(Math.random() * colors.length)]);
+
+        document.body.appendChild(sparkle);
+
+        setTimeout(function () {
+          sparkle.remove();
+        }, 900);
+      }
+    }
+
+    document.addEventListener("click", function (event) {
+      const button = event.target.closest("button");
+
+      if (!button) {
+        return;
+      }
+
+      createButtonSparkles(event, button);
+    });
+
+    function getCartTotal() {
+      return orderCart.reduce(function (total, item) {
+        return total + item.subtotal;
+      }, 0);
+    }
+
+    function renderCart() {
+      if (orderCart.length === 0) {
+        cartList.innerHTML = '<p class="cart-empty">Belum ada menu dipilih.</p>';
+        cartTotal.style.display = "none";
+        cartTotal.innerHTML = `
+          <span>Total Pesanan</span>
+          <strong>${formatRupiah(0)}</strong>
+        `;
+        return;
+      }
+
+      let cartHTML = "";
+
+      orderCart.forEach(function (item, index) {
+        cartHTML += `
+          <div class="cart-row">
+            <div>
+              <div class="cart-name">${item.qty}× ${item.name}</div>
+              <span class="cart-detail">
+                ${formatRupiah(item.unitPrice)} / item
+              </span>
+            </div>
+
+            <div class="cart-subtotal">${formatRupiah(item.subtotal)}</div>
+
+            <button
+              type="button"
+              class="remove-cart-button"
+              data-index="${index}"
+            >
+              Hapus
+            </button>
+          </div>
+        `;
+      });
+
+      cartList.innerHTML = cartHTML;
+      cartTotal.style.display = "flex";
+      cartTotal.innerHTML = `
+        <span>Total Pesanan</span>
+        <strong>${formatRupiah(getCartTotal())}</strong>
+      `;
+    }
+
+    async function getNameFromReference(referenceValue, collectionName) {
+      if (!referenceValue) {
+        return "-";
+      }
+
+      try {
+        let snapshot;
+
+        if (typeof referenceValue === "string") {
+          const cleanId = referenceValue.split("/").pop();
+          snapshot = await getDoc(doc(db, collectionName, cleanId));
+        } else {
+          snapshot = await getDoc(referenceValue);
+        }
+
+        if (snapshot.exists()) {
+          return snapshot.data().name || "-";
+        }
+
+        return "-";
+      } catch (error) {
+        console.error("Gagal mengambil nama referensi:", error);
+        return "-";
+      }
+    }
+
+    // Khusus untuk restoran: ambil nama lalu petakan ke "Cabang 1" / "Cabang 2"
+    // berdasarkan ID dokumen atau nama aslinya di Firestore.
+    async function getRestaurantNameFromReference(referenceValue) {
+      if (!referenceValue) {
+        return "-";
+      }
+
+      try {
+        let snapshot;
+
+        if (typeof referenceValue === "string") {
+          const cleanId = referenceValue.split("/").pop();
+          snapshot = await getDoc(doc(db, "restaurants", cleanId));
+        } else {
+          snapshot = await getDoc(referenceValue);
+        }
+
+        if (snapshot.exists()) {
+          return mapRestaurantName(snapshot.id, snapshot.data().name || "-");
+        }
+
+        return "-";
+      } catch (error) {
+        console.error("Gagal mengambil nama restoran:", error);
+        return "-";
+      }
+    }
+
+    async function getOrderItemsHTML(orderId) {
+      const orderItemsRef = collection(db, "orders", orderId, "orderItems");
+      const orderItemsSnapshot = await getDocs(orderItemsRef);
+
+      if (orderItemsSnapshot.empty) {
+        return `
+          <div class="receipt-menu">
+            <p class="receipt-section-title">♡ Menu Dipesan</p>
+            <div class="receipt-empty">
+              Detail menu belum tersedia. Sub-koleksi orderItems pada pesanan ini masih kosong.
+            </div>
+          </div>
+        `;
+      }
+
+      let itemsHTML = `
+        <div class="receipt-menu">
+          <p class="receipt-section-title">♡ Menu Dipesan</p>
+      `;
+
+      orderItemsSnapshot.forEach(function (itemSnap) {
+        const item = itemSnap.data();
+        const qty = item.qty || 0;
+        const menuName = item.menuName || "-";
+        const unitPrice = item.unitPrice || 0;
+        const subtotal = item.subtotal || 0;
+
+        itemsHTML += `
+          <div class="receipt-line">
+            <div class="receipt-line-name">
+              ${qty}× ${menuName}
+              <span class="receipt-line-detail">
+                ${formatRupiah(unitPrice)} / item
+              </span>
+            </div>
+
+            <div class="receipt-line-price">
+              ${formatRupiah(subtotal)}
+            </div>
+          </div>
+        `;
+      });
+
+      itemsHTML += `</div>`;
+
+      return itemsHTML;
+    }
+
+    customerForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const name = customerNameInput.value.trim();
+      const phone = customerPhoneInput.value.trim();
+
+      if (!name || !phone) {
+        showCustomerMessage("error", "Nama dan nomor HP wajib diisi.");
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "customers"), {
+          name: name,
+          phone: phone,
+          loyaltyPoints: 0
+        });
+
+        showCustomerMessage("success", "Customer berhasil disimpan ke Firestore.");
+
+        customerForm.reset();
+      } catch (error) {
+        console.error("Gagal menyimpan customer:", error);
+        showCustomerMessage("error", "Gagal menyimpan customer. Cek koneksi atau Firestore Rules.");
+      }
+    });
+
+    onSnapshot(collection(db, "restaurants"), function (snapshot) {
+      restaurantList.innerHTML = "";
+      restaurantSelect.innerHTML = '<option value="">-- Pilih Restoran --</option>';
+      orderRestaurantSelect.innerHTML = '<option value="">-- Pilih Restoran --</option>';
+
+      if (snapshot.empty) {
+        restaurantList.innerHTML = "<p>Belum ada data restoran.</p>";
+        restaurantSelect.innerHTML = '<option value="">Belum ada restoran</option>';
+        orderRestaurantSelect.innerHTML = '<option value="">Belum ada restoran</option>';
+        return;
+      }
+
+      snapshot.forEach(function (docSnap) {
+        const data = docSnap.data();
+        const displayName = mapRestaurantName(docSnap.id, data.name);
+
+        restaurantList.innerHTML += `
+          <div class="restaurant-card">
+            <h3>${displayName}</h3>
+            <p><strong>Alamat:</strong> ${data.address}</p>
+            <p><strong>Jam Buka:</strong> ${data.openHours}</p>
+            <span class="badge">ID: ${docSnap.id}</span>
+          </div>
+        `;
+
+        restaurantSelect.innerHTML += `
+          <option value="${docSnap.id}">${displayName}</option>
+        `;
+
+        orderRestaurantSelect.innerHTML += `
+          <option value="${docSnap.id}">${displayName}</option>
+        `;
+      });
+    });
+
+    onSnapshot(collection(db, "customers"), function (snapshot) {
+      customerSelect.innerHTML = '<option value="">-- Pilih Customer --</option>';
+      customerList.innerHTML = "";
+
+      if (snapshot.empty) {
+        customerSelect.innerHTML = '<option value="">Belum ada customer</option>';
+        customerList.innerHTML = "<p>Belum ada customer.</p>";
+        return;
+      }
+
+      snapshot.forEach(function (docSnap) {
+        const customer = docSnap.data();
+
+        customerSelect.innerHTML += `
+          <option value="${docSnap.id}">${customer.name}</option>
+        `;
+
+        customerList.innerHTML += `
+          <div class="customer-card">
+            <h3>${customer.name}</h3>
+            <p><strong>Nomor HP:</strong> ${maskPhone(customer.phone)}</p>
+            <p><strong>Loyalty Points:</strong> ${customer.loyaltyPoints}</p>
+            <span class="badge">ID: ${docSnap.id}</span>
+          </div>
+        `;
+      });
+    });
+
+    restaurantSelect.addEventListener("change", function () {
+      const restaurantId = restaurantSelect.value;
+
+      if (stopMenuListener) {
+        stopMenuListener();
+      }
+
+      if (!restaurantId) {
+        menuList.innerHTML = "Pilih restoran untuk melihat menu.";
+        return;
+      }
+
+      menuList.innerHTML = "Memuat menu...";
+
+      const menusRef = collection(db, "restaurants", restaurantId, "menus");
+
+      stopMenuListener = onSnapshot(menusRef, function (snapshot) {
+        menuList.innerHTML = "";
+
+        if (snapshot.empty) {
+          menuList.innerHTML = "<p>Belum ada menu di restoran ini.</p>";
+          return;
+        }
+
+        let menuHTML = '<div class="menu-grid">';
+
+        snapshot.forEach(function (docSnap) {
+          const menu = docSnap.data();
+
+          menuHTML += `
+            <div class="menu-card">
+              <img src="${menu.imageUrl}" alt="${menu.name}" />
+              <div class="menu-content">
+                <h3>${menu.name}</h3>
+                <p><strong>Kategori:</strong> ${menu.category}</p>
+                <p class="price">${formatRupiah(menu.price)}</p>
+                <p class="${menu.available ? "available" : "not-available"}">
+                  ${menu.available ? "Tersedia" : "Tidak tersedia"}
+                </p>
+                <span class="badge">ID: ${docSnap.id}</span>
+              </div>
+            </div>
+          `;
+        });
+
+        menuHTML += "</div>";
+        menuList.innerHTML = menuHTML;
+      });
+    });
+
+    orderRestaurantSelect.addEventListener("change", function () {
+      const restaurantId = orderRestaurantSelect.value;
+
+      selectedMenuData = null;
+      orderCart = [];
+      renderCart();
+
+      if (stopOrderMenuListener) {
+        stopOrderMenuListener();
+      }
+
+      menuSelect.innerHTML = '<option value="">Memuat menu...</option>';
+
+      if (!restaurantId) {
+        menuSelect.innerHTML = '<option value="">Pilih restoran dulu</option>';
+        return;
+      }
+
+      const menusRef = collection(db, "restaurants", restaurantId, "menus");
+
+      stopOrderMenuListener = onSnapshot(menusRef, function (snapshot) {
+        menuSelect.innerHTML = '<option value="">-- Pilih Menu --</option>';
+
+        if (snapshot.empty) {
+          menuSelect.innerHTML = '<option value="">Belum ada menu</option>';
+          return;
+        }
+
+        snapshot.forEach(function (docSnap) {
+          const menu = docSnap.data();
+
+          if (menu.available === true) {
+            menuSelect.innerHTML += `
+              <option
+                value="${docSnap.id}"
+                data-name="${menu.name}"
+                data-price="${menu.price}"
+              >
+                ${menu.name} - ${formatRupiah(menu.price)}
+              </option>
+            `;
+          }
+        });
+      });
+    });
+
+    menuSelect.addEventListener("change", function () {
+      const selectedOption = menuSelect.options[menuSelect.selectedIndex];
+
+      if (!selectedOption || !selectedOption.value) {
+        selectedMenuData = null;
+        return;
+      }
+
+      selectedMenuData = {
+        id: selectedOption.value,
+        name: selectedOption.getAttribute("data-name"),
+        price: Number(selectedOption.getAttribute("data-price"))
+      };
+    });
+
+    addMenuButton.addEventListener("click", function () {
+      const qty = Number(qtyInput.value);
+
+      if (!selectedMenuData) {
+        showOrderMessage("error", "Pilih menu terlebih dahulu.");
+        return;
+      }
+
+      if (!qty || qty < 1) {
+        showOrderMessage("error", "Jumlah menu minimal 1.");
+        return;
+      }
+
+      const existingItem = orderCart.find(function (item) {
+        return item.id === selectedMenuData.id;
+      });
+
+      if (existingItem) {
+        existingItem.qty += qty;
+        existingItem.subtotal = existingItem.qty * existingItem.unitPrice;
+      } else {
+        orderCart.push({
+          id: selectedMenuData.id,
+          name: selectedMenuData.name,
+          qty: qty,
+          unitPrice: selectedMenuData.price,
+          subtotal: qty * selectedMenuData.price
+        });
+      }
+
+      renderCart();
+
+      showOrderMessage("success", "Menu berhasil ditambahkan ke pesanan.");
+
+      menuSelect.value = "";
+      qtyInput.value = 1;
+      selectedMenuData = null;
+    });
+
+    cartList.addEventListener("click", function (event) {
+      if (!event.target.classList.contains("remove-cart-button")) {
+        return;
+      }
+
+      const index = Number(event.target.getAttribute("data-index"));
+      orderCart.splice(index, 1);
+      renderCart();
+    });
+
+    orderForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const customerId = customerSelect.value;
+      const restaurantId = orderRestaurantSelect.value;
+      const tableNumber = Number(tableNumberInput.value);
+
+      if (!customerId || !restaurantId || !tableNumber || orderCart.length === 0) {
+        showOrderMessage("error", "Lengkapi customer, restoran, nomor meja, dan minimal 1 menu pesanan.");
+        return;
+      }
+
+      const totalPrice = getCartTotal();
+
+      try {
+        const orderRef = await addDoc(collection(db, "orders"), {
+          customerId: doc(db, "customers", customerId),
+          restaurantId: doc(db, "restaurants", restaurantId),
+          tableNumber: tableNumber,
+          status: "pending",
+          totalPrice: totalPrice,
+          createdAt: serverTimestamp()
+        });
+
+        for (const item of orderCart) {
+          await addDoc(collection(db, "orders", orderRef.id, "orderItems"), {
+            menuId: item.id,
+            menuName: item.name,
+            qty: item.qty,
+            unitPrice: item.unitPrice,
+            subtotal: item.subtotal
+          });
+        }
+
+        showOrderMessage("success", "Pesanan berhasil dibuat dengan beberapa menu.");
+
+        orderForm.reset();
+        menuSelect.innerHTML = '<option value="">Pilih restoran dulu</option>';
+        selectedMenuData = null;
+        orderCart = [];
+        renderCart();
+      } catch (error) {
+        console.error("Gagal membuat pesanan:", error);
+        showOrderMessage("error", "Gagal membuat pesanan. Cek koneksi atau Firestore Rules.");
+      }
+    });
+
+    const ordersQuery = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+
+    onSnapshot(ordersQuery, async function (snapshot) {
+      orderList.innerHTML = "";
+
+      if (snapshot.empty) {
+        orderList.innerHTML = "<p>Belum ada pesanan.</p>";
+        return;
+      }
+
+      for (const docSnap of snapshot.docs) {
+        const order = docSnap.data();
+
+        const customerName = await getNameFromReference(order.customerId, "customers");
+        const restaurantName = await getRestaurantNameFromReference(order.restaurantId);
+        const orderItemsHTML = await getOrderItemsHTML(docSnap.id);
+
+        const createdTime = order.createdAt && typeof order.createdAt.toDate === "function"
+          ? order.createdAt.toDate().toLocaleTimeString("id-ID", {
+              hour: "2-digit",
+              minute: "2-digit"
+            })
+          : "-";
+
+        const statusText = order.status || "pending";
+
+        const statusLabel = {
+          pending: "PENDING",
+          cooking: "DIMASAK",
+          ready: "SIAP",
+          done: "SELESAI"
+        };
+
+        orderList.innerHTML += `
+          <div class="order-card receipt-card">
+            <div class="receipt-glow"></div>
+
+            <div class="receipt-topbar">
+              <div class="receipt-mini-row">
+                <p class="receipt-label">♡ Struk Pesanan ♡</p>
+                <span class="receipt-time">${createdTime}</span>
+              </div>
+
+              <div class="receipt-table-row">
+                <h3>Meja #${order.tableNumber || "-"}</h3>
+                <span class="receipt-status ${statusText}">
+                  ${statusLabel[statusText] || statusText.toUpperCase()}
+                </span>
+              </div>
+            </div>
+
+            <div class="receipt-body">
+              <div class="receipt-shop">
+                <p class="receipt-restaurant">${restaurantName}</p>
+                <p class="receipt-customer"><strong>Customer:</strong> ${customerName}</p>
+                <p class="receipt-id">Kode: ${docSnap.id}</p>
+              </div>
+
+              ${orderItemsHTML}
+
+              <div class="receipt-total">
+                <span>Total</span>
+                <strong>${formatRupiah(order.totalPrice)}</strong>
+              </div>
+
+              <div class="receipt-control">
+                <div>
+                  <label for="status-${docSnap.id}">Ubah Status</label>
+                  <select id="status-${docSnap.id}" class="status-select">
+                    ${statusOptions(statusText)}
+                  </select>
+                </div>
+
+                <button
+                  type="button"
+                  class="update-status-button"
+                  data-order-id="${docSnap.id}"
+                >
+                  Update
+                </button>
+              </div>
+            </div>
+
+            <div class="receipt-thanks">
+             ♡ Thank you for your order ♡
+            </div>
+          </div>
+        `;
+      }
+    });
+
+    orderList.addEventListener("click", async function (event) {
+      if (!event.target.classList.contains("update-status-button")) {
+        return;
+      }
+
+      const orderId = event.target.getAttribute("data-order-id");
+      const statusSelect = document.getElementById("status-" + orderId);
+      const newStatus = statusSelect.value;
+
+      try {
+        await updateDoc(doc(db, "orders", orderId), {
+          status: newStatus
+        });
+
+        alert("Status pesanan berhasil diperbarui menjadi: " + newStatus);
+      } catch (error) {
+        console.error("Gagal update status:", error);
+        alert("Gagal update status pesanan.");
+      }
+    });
+
+    renderCart();
+  </script>
+</body>
+</html>
